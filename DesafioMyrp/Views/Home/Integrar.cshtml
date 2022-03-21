@@ -1,0 +1,22 @@
+﻿<div class="col-md-12 col-sm-12 col-xs-12">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Mensagem da integração</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var mensagem in ViewBag.Mensagens)
+            {
+                <tr>
+                    <td>@mensagem.Nome</td>
+                    <td>@mensagem.Mensagem</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    @Html.ActionLink("Voltar", "Index", "Home")
+</div>

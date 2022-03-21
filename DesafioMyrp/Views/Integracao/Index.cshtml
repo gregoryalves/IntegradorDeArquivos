@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Integrações";
+}
+<h3>@ViewBag.Title</h3>
+
+<style>
+    .title-box {
+        border: gray 1px dotted;        
+    }        
+</style>
+
+<form id="form1" action="/Integracao/Salvar" method="post">
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <label for="id">Id:</label>
+        <input type="number" name="id" id="id" class="form-control" readonly />
+        <br />
+        <label for="acao">Ação:</label>
+        <select class="form-control" id="acao" name="acao">
+            <option value="email" selected="selected">
+                Enviar e-mail
+            </option>
+            <option value="link">
+                Consumir link
+            </option>
+        </select>
+        <br />
+        <label for="formato">Formato:</label>
+        <select class="form-control" id="formato" name="formato">
+            <option value="json" selected="selected">
+                json
+            </option>
+            <option value="csv">
+                csv
+            </option>
+            <option value="xml">
+                xml
+            </option>
+        </select>
+        <br />
+        <label for="metodoRequisicao">Método da requisição:</label>
+        <select class="form-control" id="metodoRequisicao" name="metodoRequisicao">
+            <option value="GET" selected="selected">
+                GET
+            </option>
+            <option value="POST">
+                POST
+            </option>
+        </select>
+        <br />
+        <label for="url">Url de requisição:</label>
+        <input type="text" name="url" id="url" class="form-control" placeholder="Exemplo: http://httpbin.org/post" required />
+        <br />
+        <label for="titulo">Título no E-mail:</label>
+        <input type="text" name="titulo" id="titulo" class="form-control" required />
+        <br />
+        <br />
+        <div class="form-inline">
+            <button type="submit" value="Salvar" id="btnSalvar" class="btn btn-sm btn-primary">Salvar</button>
+            <button type="submit" value="Excluir" id="btnExcluir" class="btn btn-sm btn-danger">Excluir</button>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+        <div class="form-inline control-group col-md-12 col-sm-12 col-xs-12">
+            <br />
+            <label for="nome">Utilizar campo Nome</label>
+            <input type="checkbox" name="nome" id="nome" class="checkbox" value="true" />
+            <input name="nome" id="nome" value="false" type="hidden" />
+            <br />
+            <br />
+            <br />
+            <br />
+            <label for="idade">Utilizar campo Idade</label>
+            <input type="checkbox" name="idade" id="idade" class="checkbox" value="true" />
+            <input name="idade" id="idade" value="false" type="hidden" />
+            <br />
+            <br />
+            <br />
+            <br />
+            <label for="telefone">Utilizar campo Telefone</label>
+            <input type="checkbox" name="telefone" id="telefone" class="checkbox" value="true" />
+            <input name="telefone" id="telefone" value="false" type="hidden" />
+            <br />
+            <br />
+            <br />
+            <br />
+            <label for="email">Utilizar campo E-mail</label>
+            <input type="checkbox" name="email" id="email" class="checkbox" value="true" />
+            <input name="email" id="email" value="false" type="hidden" />
+            <br />
+            <br />
+        </div>
+    </div>
+
+    <div class="control-group col-md-4 col-sm-4 col-xs-4 ">
+        <h4>Critério</h4>
+        <div>
+            <div class="col-md-12 col-sm-12 col-xs-12 title-box">
+                <br />
+                <label for="campo">Campo:</label>
+                <select class="form-control" id="campo" name="campo">
+                    <option value="" disabled selected>- Nenhum -</option>
+                    <option value="idade">
+                        Idade
+                    </option>
+                </select>
+                <br />
+                <label for="condicao">Condição:</label>
+                <select class="form-control" id="condicao" name="condicao">
+                    <option value="" disabled selected>- Nenhum -</option>
+                    <option value="<">
+                        <
+                    </option>
+                    <option value=">">
+                        >
+                    </option>
+                    <option value="<=">
+                        <=
+                    </option>
+                    <option value=">=">
+                        >=
+                    </option>
+                    <option value="=">
+                        =
+                    </option>
+                </select>
+                <br />
+                <label for="valor">Valor:</label>
+                <input type="number" name="valor" id="valor" class="form-control" />
+                <br />
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+</form>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <br />
+    <br />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>Id</th>
+                <th>Título E-mail</th>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Formato</th>
+                <th>Campo</th>
+                <th>Condição</th>
+                <th>Valor</th>
+                <th>Url</th>
+                <th>Acao</th>
+                <th>Método</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var integracao in ViewBag.Integracoes)
+            {
+                <tr>
+                    <td style="border: none; width: 150px;">
+                        <a class="btn btn-sm btn-primary" href="javascript:window.seletor.selecionar('@integracao.Id')">Selecionar</a>
+                    </td>
+                    <td>@integracao.Id</td>
+                    <td>@integracao.Titulo</td>
+                    <td>@integracao.Nome</td>
+                    <td>@integracao.Idade</td>
+                    <td>@integracao.Telefone</td>
+                    <td>@integracao.Email</td>
+                    <td>@integracao.Formato</td>
+                    <td>@integracao.Campo</td>
+                    <td>@integracao.Condicao</td>
+                    <td>@integracao.Valor</td>
+                    <td>@integracao.Url</td>
+                    <td>@integracao.Acao</td>
+                    <td>@integracao.MetodoRequisicao</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Voltar", "Index", "Home")
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+
+    $(document).ready(function () {
+        
+        $("#btnExcluir").on("click", function () {
+            document.getElementById("titulo").removeAttribute("required");
+            document.getElementById("url").removeAttribute("required");
+            $('#form1').attr('action', '/Integracao/Excluir');
+        });
+
+    });
+
+    window.seletor = {
+        selecionar: function (id) {
+            $("#id").val(id);
+        }
+    };
+
+</script>
